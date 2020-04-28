@@ -155,7 +155,7 @@ public class TextEditor extends JFrame {
 
         ActionListeners.setSearchAction(actionEvent -> {
             currentIndex = -1;
-            textArea.setCaretPosition(textArea.getText().length() - 1);
+            textArea.setCaretPosition(0);
             if (searchField.getText().isEmpty()) {
                 return;
             }
@@ -176,8 +176,6 @@ public class TextEditor extends JFrame {
 
         ActionListeners.setNextMatchAction(actionEvent -> {
             if (currentIndex == -1) {
-                textArea.setCaretPosition(textArea.getText().length() - 1);
-                textArea.grabFocus();
                 return;
             }
             currentIndex = Math.min(currentIndex + 1, searchIndexes.size() - 1);
@@ -186,8 +184,6 @@ public class TextEditor extends JFrame {
 
         ActionListeners.setPrevMatchAction(actionEvent -> {
             if (currentIndex == -1) {
-                textArea.setCaretPosition(textArea.getText().length() - 1);
-                textArea.grabFocus();
                 return;
             }
 
@@ -206,7 +202,7 @@ public class TextEditor extends JFrame {
     }
 
     private String nameToAbsolutePath(String fileName) {
-        String workingDirectory = System.getProperty("user.dir") + "/Text Editor/task/src/editor/resources";
+        String workingDirectory = System.getProperty("user.dir") + File.separator + "resources";
         return workingDirectory + File.separator + fileName;
     }
 
