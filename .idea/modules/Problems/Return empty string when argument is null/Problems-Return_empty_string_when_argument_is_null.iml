@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":Problems-Return_empty_string_when_argument_is_null" external.linked.project.path="$MODULE_DIR$/../../../../Problems/Return empty string when argument is null" external.root.project.path="$MODULE_DIR$/../../../.." external.system.id="GRADLE" external.system.module.group="MyTextEditor" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../Problems/Return empty string when argument is null">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Problems/Return empty string when argument is null/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Problems/Return empty string when argument is null/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Problems/Return empty string when argument is null/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
