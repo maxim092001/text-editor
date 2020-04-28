@@ -26,7 +26,7 @@ public class TextEditor extends JFrame {
         setLocationRelativeTo(null);
         setSize(700, 500);
         setTitle("Maxon");
-//        fileChooser.setVisible(false);
+        fileChooser.setVisible(false);
         fileChooser.setName("FileChooser");
         add(fileChooser, BorderLayout.PAGE_END);
         initComponents();
