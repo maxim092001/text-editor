@@ -2,6 +2,9 @@ package editor;
 
 import java.awt.event.ActionListener;
 
+/**
+ * @author Maksim Grankin (maximgran@gmail.com)
+ */
 public class ActionListeners {
     private static ActionListener saveAction;
     private static ActionListener openAction;

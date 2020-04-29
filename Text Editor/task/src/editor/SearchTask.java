@@ -7,6 +7,9 @@ import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Maksim Grankin (maximgran@gmail.com)
+ */
 public class SearchTask implements Callable<List<StartEndPair>> {
 
     private final JTextArea textArea;

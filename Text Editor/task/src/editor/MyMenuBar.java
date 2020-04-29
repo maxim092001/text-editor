@@ -3,6 +3,9 @@ package editor;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * @author Maksim Grankin (maximgran@gmail.com)
+ */
 public class MyMenuBar {
 
     private JMenuBar menuBar;

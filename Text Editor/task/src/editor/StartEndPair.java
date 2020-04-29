@@ -1,5 +1,8 @@
 package editor;
 
+/**
+ * @author Maksim Grankin (maximgran@gmail.com)
+ */
 public class StartEndPair {
     private int start;
     private int end;
