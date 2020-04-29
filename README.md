@@ -5,6 +5,13 @@
 На данным момент вы можете склонировать этот репозиторий к себе и запустить, в будущем планируется более удобный формат.
 Основным отличием от остальных текстовых редакторов является наличие поиска по regular-expressions.
 
+
+**UPD:** добавлен jar [Скачать](https://github.com/maxim092001/TextEditor/blob/master/jars/Maxon.jar)
+
+
+**Запуск: java -jar Maxon.jar**
+
+
 Основная страница
 ---
 ![Main page](https://github.com/maxim092001/TextEditor/blob/master/Text%20Editor/task/resources/screenshots/main%20page.png)
