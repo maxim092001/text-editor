@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -22,7 +23,7 @@ public class TextEditor extends JFrame {
     private int currentIndex = standardIndex;
     private String currentDirectory = System.getProperty("user.home");
     private final String OS = System.getProperty("os.name").toLowerCase();
-
+    JTextArea textArea;
     public TextEditor() {
         if (OS.contains("mac")) {
             System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -46,7 +47,7 @@ public class TextEditor extends JFrame {
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         });
 
-        JTextArea textArea = createTextArea();
+        textArea = createTextArea();
         JScrollPane scrollPane = makeTextAreaScrollable(textArea);
 
         JPanel saveLoadPanel = createTopBar(textArea);
@@ -90,24 +91,24 @@ public class TextEditor extends JFrame {
 
         setActionListeners(textArea, searchField, useRegExCheckBox);
 
-        JButton saveButton = new JButton(getImageIcon(resourcesAbsolutePath("save.png")));
+        JButton saveButton = new JButton(getImageIcon(getUrlByFileName("save.png")));
         saveButton.setName("SaveButton");
         saveButton.addActionListener(ActionListeners.getSaveAction());
 
-        JButton openButton = new JButton(getImageIcon(resourcesAbsolutePath("open.png")));
+        JButton openButton = new JButton(getImageIcon(getUrlByFileName("open.png")));
         openButton.setName("OpenButton");
         openButton.addActionListener(ActionListeners.getOpenAction());
 
-        JButton startSearchButton = new JButton(getImageIcon(resourcesAbsolutePath("search.png")));
+        JButton startSearchButton = new JButton(getImageIcon(getUrlByFileName("search.png")));
         startSearchButton.setName("StartSearchButton");
 
         startSearchButton.addActionListener(ActionListeners.getSearchAction());
 
-        JButton previousMatchButton = new JButton(getImageIcon(resourcesAbsolutePath("prev-arrow.png")));
+        JButton previousMatchButton = new JButton(getImageIcon(getUrlByFileName("prev-arrow.png")));
         previousMatchButton.setName("PreviousMatchButton");
         previousMatchButton.addActionListener(ActionListeners.getPrevMatchAction());
 
-        JButton nextMatchButton = new JButton(getImageIcon(resourcesAbsolutePath("next-arrow.png")));
+        JButton nextMatchButton = new JButton(getImageIcon(getUrlByFileName("next-arrow.png")));
         nextMatchButton.setName("NextMatchButton");
         nextMatchButton.addActionListener(ActionListeners.getNextMatchAction());
 
@@ -215,13 +216,13 @@ public class TextEditor extends JFrame {
         textArea.grabFocus();
     }
 
-    private String resourcesAbsolutePath(String fileName) {
-        String workingDirectory = System.getProperty("user.dir") + File.separator + "resources";
-        return workingDirectory + File.separator + fileName;
+    private URL getUrlByFileName(String filename) {
+        File fl = new File(getClass().getClassLoader().getResource(filename).getFile());
+        return getClass().getClassLoader().getResource(filename);
     }
 
-    private ImageIcon getImageIcon(String filePath) {
-        ImageIcon icon = new ImageIcon(filePath);
+    private ImageIcon getImageIcon(URL url) {
+        ImageIcon icon = new ImageIcon(url);
         Image image = icon.getImage();
         Image newImage = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         return new ImageIcon(newImage);
