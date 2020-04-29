@@ -7,16 +7,16 @@
 
 Основная страница
 ---
-![Main page](https://github.com/maxim092001/TextEditor/blob/master/resources/screenshots/main%20page.png)
+![Main page](https://github.com/maxim092001/TextEditor/blob/master/Text%20Editor/task/resources/screenshots/main%20page.png)
 
 Сохранение
 ---
-![Save](https://github.com/maxim092001/TextEditor/blob/master/resources/screenshots/saving.png)
+![Save](https://github.com/maxim092001/TextEditor/blob/master/Text%20Editor/task/resources/screenshots/saving.png)
 
 Возможности поиска
 ---
-![Search](https://github.com/maxim092001/TextEditor/blob/master/resources/screenshots/search.png)
+![Search](https://github.com/maxim092001/TextEditor/blob/master/Text%20Editor/task/resources/screenshots/search.png)
 
 Реуглярные выражения
 ---
-![RegExp](https://github.com/maxim092001/TextEditor/blob/master/resources/screenshots/regexp.png)
+![RegExp](https://github.com/maxim092001/TextEditor/blob/master/Text%20Editor/task/resources/screenshots/regexp.png)
