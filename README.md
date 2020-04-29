@@ -1,4 +1,4 @@
-## Текстовый редактор реализованный на Swing GUI
+## Текстовый редактор Maxon реализованный на Swing GUI.
 
 Данный проект был мной выполнен в [JetBrains Academy](https://www.jetbrains.com/ru-ru/academy/), платформа [Hyperskill](https://hyperskill.org/) и на данный момент дорабатывается.
 ----
