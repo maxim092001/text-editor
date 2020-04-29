@@ -217,7 +217,6 @@ public class TextEditor extends JFrame {
     }
 
     private URL getUrlByFileName(String filename) {
-        File fl = new File(getClass().getClassLoader().getResource(filename).getFile());
         return getClass().getClassLoader().getResource(filename);
     }
 
