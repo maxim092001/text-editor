@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SearchTask implements Callable<List<Pair<Integer, Integer>>> {
+public class SearchTask implements Callable<List<StartEndPair>> {
 
     private final JTextArea textArea;
     private final String pattern;
@@ -20,21 +20,21 @@ public class SearchTask implements Callable<List<Pair<Integer, Integer>>> {
     }
 
     @Override
-    public List<Pair<Integer, Integer>> call() {
+    public List<StartEndPair> call() {
         String text = textArea.getText();
-        List<Pair<Integer, Integer>> occurrenceIndexes = new ArrayList<>();
+        List<StartEndPair> occurrenceIndexes = new ArrayList<>();
         if (isRegex) {
             Pattern p = Pattern.compile(pattern);
             Matcher matcher = p.matcher(text);
             while (matcher.find()) {
-                occurrenceIndexes.add(new Pair<>(matcher.start(), matcher.end()));
+                occurrenceIndexes.add(new StartEndPair(matcher.start(), matcher.end()));
             }
         } else {
             int index = 0;
             while (index != -1) {
                 index = text.indexOf(pattern, index);
                 if (index != -1) {
-                    occurrenceIndexes.add(new Pair<>(index, index + pattern.length()));
+                    occurrenceIndexes.add(new StartEndPair(index, index + pattern.length()));
                     index++;
                 }
             }

@@ -1,9 +1,8 @@
 package editor;
 
-import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public class ActionListeners extends JFrame {
+public class ActionListeners {
     private static ActionListener saveAction;
     private static ActionListener openAction;
     private static ActionListener exitAction;

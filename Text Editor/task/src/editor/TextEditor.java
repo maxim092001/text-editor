@@ -16,15 +16,24 @@ import java.util.concurrent.Future;
 
 public class TextEditor extends JFrame {
 
+    private final int standardIndex = -1;
     private final FileDialog fileDialog = new FileDialog(this);
-    private List<Pair<Integer, Integer>> searchIndexes;
-    private int currentIndex = -1;
+    private List<StartEndPair> patternIndexes;
+    private int currentIndex = standardIndex;
     private String currentDirectory = System.getProperty("user.home");
+    private final String OS = System.getProperty("os.name").toLowerCase();
 
     public TextEditor() {
+        if (OS.contains("mac")) {
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+        }
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setSize(700, 500);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        double height = screenSize.getHeight();
+        setSize((int)width, (int)height);
         setTitle("Maxon");
         initComponents();
 
@@ -145,17 +154,17 @@ public class TextEditor extends JFrame {
         });
 
         ActionListeners.setSearchAction(actionEvent -> {
-            currentIndex = -1;
+            currentIndex = standardIndex;
             textArea.setCaretPosition(0);
             if (searchField.getText().isEmpty()) {
                 return;
             }
             ExecutorService executor = Executors.newCachedThreadPool();
-            Future<List<Pair<Integer, Integer>>> futureCall = executor.submit(new SearchTask(textArea, searchField.getText(),
+            Future<List<StartEndPair>> futureCall = executor.submit(new SearchTask(textArea, searchField.getText(),
                     useRegExCheckBox.isSelected()));
             try {
-                searchIndexes = futureCall.get();
-                if (searchIndexes.isEmpty()) {
+                patternIndexes = futureCall.get();
+                if (patternIndexes.isEmpty()) {
                     return;
                 }
                 currentIndex = 0;
@@ -166,15 +175,15 @@ public class TextEditor extends JFrame {
         });
 
         ActionListeners.setNextMatchAction(actionEvent -> {
-            if (currentIndex == -1) {
+            if (currentIndex == standardIndex) {
                 return;
             }
-            currentIndex = Math.min(currentIndex + 1, searchIndexes.size() - 1);
+            currentIndex = Math.min(currentIndex + 1, patternIndexes.size() - 1);
             setCaret(textArea, searchField.getText().length());
         });
 
         ActionListeners.setPrevMatchAction(actionEvent -> {
-            if (currentIndex == -1) {
+            if (currentIndex == standardIndex) {
                 return;
             }
 
@@ -200,9 +209,9 @@ public class TextEditor extends JFrame {
     }
 
     private void setCaret(JTextArea textArea, int wordSize) {
-        textArea.setCaretPosition(searchIndexes.get(currentIndex).getFirst() + wordSize);
-        textArea.select(searchIndexes.get(currentIndex).getFirst(),
-                searchIndexes.get(currentIndex).getSecond());
+        textArea.setCaretPosition(patternIndexes.get(currentIndex).getStart() + wordSize);
+        textArea.select(patternIndexes.get(currentIndex).getStart(),
+                patternIndexes.get(currentIndex).getEnd());
         textArea.grabFocus();
     }
 
