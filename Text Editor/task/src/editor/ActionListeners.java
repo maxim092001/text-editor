@@ -11,6 +11,7 @@ public class ActionListeners extends JFrame {
     private static ActionListener prevMatchAction;
     private static ActionListener nextMatchAction;
     private static ActionListener useRegExAction;
+    private static ActionListener saveAsAction;
 
     ActionListeners() {}
 
@@ -68,5 +69,13 @@ public class ActionListeners extends JFrame {
 
     public static void setUseRegExAction(final ActionListener useRegExAction) {
         ActionListeners.useRegExAction = useRegExAction;
+    }
+
+    public static ActionListener getSaveAsAction() {
+        return saveAsAction;
+    }
+
+    public static void setSaveAsAction(final ActionListener saveAsAction) {
+        ActionListeners.saveAsAction = saveAsAction;
     }
 }

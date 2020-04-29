@@ -16,20 +16,18 @@ import java.util.concurrent.Future;
 
 public class TextEditor extends JFrame {
 
-    private final JFileChooser fileChooser = new JFileChooser();
+    private final FileDialog fileDialog = new FileDialog(this);
     private List<Pair<Integer, Integer>> searchIndexes;
     private int currentIndex = -1;
+    private String currentDirectory = System.getProperty("user.home");
 
     public TextEditor() {
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(700, 500);
         setTitle("Maxon");
-        fileChooser.setVisible(false);
-        fileChooser.setName("FileChooser");
-        add(fileChooser, BorderLayout.PAGE_END);
         initComponents();
+
         setVisible(true);
     }
 
@@ -83,24 +81,24 @@ public class TextEditor extends JFrame {
 
         setActionListeners(textArea, searchField, useRegExCheckBox);
 
-        JButton saveButton = new JButton(getImageIcon(nameToAbsolutePath("save.png")));
+        JButton saveButton = new JButton(getImageIcon(resourcesAbsolutePath("save.png")));
         saveButton.setName("SaveButton");
         saveButton.addActionListener(ActionListeners.getSaveAction());
 
-        JButton openButton = new JButton(getImageIcon(nameToAbsolutePath("open.png")));
+        JButton openButton = new JButton(getImageIcon(resourcesAbsolutePath("open.png")));
         openButton.setName("OpenButton");
         openButton.addActionListener(ActionListeners.getOpenAction());
 
-        JButton startSearchButton = new JButton(getImageIcon(nameToAbsolutePath("search.png")));
+        JButton startSearchButton = new JButton(getImageIcon(resourcesAbsolutePath("search.png")));
         startSearchButton.setName("StartSearchButton");
 
         startSearchButton.addActionListener(ActionListeners.getSearchAction());
 
-        JButton previousMatchButton = new JButton(getImageIcon(nameToAbsolutePath("prev-arrow.png")));
+        JButton previousMatchButton = new JButton(getImageIcon(resourcesAbsolutePath("prev-arrow.png")));
         previousMatchButton.setName("PreviousMatchButton");
         previousMatchButton.addActionListener(ActionListeners.getPrevMatchAction());
 
-        JButton nextMatchButton = new JButton(getImageIcon(nameToAbsolutePath("next-arrow.png")));
+        JButton nextMatchButton = new JButton(getImageIcon(resourcesAbsolutePath("next-arrow.png")));
         nextMatchButton.setName("NextMatchButton");
         nextMatchButton.addActionListener(ActionListeners.getNextMatchAction());
 
@@ -116,39 +114,32 @@ public class TextEditor extends JFrame {
 
 
     private void setActionListeners(JTextArea textArea, JTextField searchField, JCheckBox useRegExCheckBox) {
-        ActionListeners.setSaveAction(actionEvent -> {
-            fileChooser.setVisible(true);
-            int returnValue = fileChooser.showSaveDialog(null);
-            if (returnValue == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
-                if (selectedFile == null) {
-                    textArea.setText("");
-                } else {
-                    try (Writer writer = new FileWriter(selectedFile)) {
-                        writer.write(textArea.getText());
-                    } catch (IOException e) {
-                        textArea.setText("");
-                        e.printStackTrace();
-                    }
-                }
-            }
+        ActionListeners.setSaveAsAction(actionEvent -> {
+            fileDialog.setMode(FileDialog.SAVE);
+            fileDialog.setDirectory(currentDirectory);
+            fileDialog.setVisible(true);
+            saveText(textArea);
         });
 
-        ActionListeners.setOpenAction(actionEvent -> {
-            fileChooser.setVisible(true);
-            int returnValue = fileChooser.showOpenDialog(null);
-            if (returnValue == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
-                if (selectedFile == null) {
-                    textArea.setText("");
-                } else {
-                    try {
-                        textArea.setText(new String(Files.readAllBytes(selectedFile.toPath())));
-                    } catch (IOException e) {
-                        textArea.setText("");
-                        e.printStackTrace();
-                    }
+        ActionListeners.setSaveAction(actionEvent -> saveText(textArea));
 
+        ActionListeners.setOpenAction(actionEvent -> {
+            fileDialog.setMode(FileDialog.LOAD);
+            fileDialog.setDirectory(currentDirectory);
+            fileDialog.setVisible(true);
+
+            String absoluteFileName = getFileDialogAbsolutePath();
+            currentDirectory = fileDialog.getDirectory();
+
+            if (fileDialog.getFile() == null) {
+                textArea.setText("");
+            } else {
+                File selectedFile = new File(absoluteFileName);
+                try {
+                    textArea.setText(new String(Files.readAllBytes(selectedFile.toPath())));
+                } catch (IOException e) {
+                    textArea.setText("");
+                    e.printStackTrace();
                 }
             }
         });
@@ -194,6 +185,20 @@ public class TextEditor extends JFrame {
         ActionListeners.setUseRegExAction(actionEvent -> useRegExCheckBox.setSelected(true));
     }
 
+    private void saveText(final JTextArea textArea) {
+        if (fileDialog.getFile() == null) {
+            textArea.setText("");
+        } else {
+            File selectedFile = new File(getFileDialogAbsolutePath());
+            try (Writer writer = new FileWriter(selectedFile)) {
+                writer.write(textArea.getText());
+            } catch (IOException e) {
+                textArea.setText("");
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void setCaret(JTextArea textArea, int wordSize) {
         textArea.setCaretPosition(searchIndexes.get(currentIndex).getFirst() + wordSize);
         textArea.select(searchIndexes.get(currentIndex).getFirst(),
@@ -201,7 +206,7 @@ public class TextEditor extends JFrame {
         textArea.grabFocus();
     }
 
-    private String nameToAbsolutePath(String fileName) {
+    private String resourcesAbsolutePath(String fileName) {
         String workingDirectory = System.getProperty("user.dir") + File.separator + "resources";
         return workingDirectory + File.separator + fileName;
     }
@@ -218,5 +223,10 @@ public class TextEditor extends JFrame {
         component.setMinimumSize(d);
         component.setMaximumSize(d);
         component.setPreferredSize(d);
+    }
+
+
+    private String getFileDialogAbsolutePath() {
+        return fileDialog.getDirectory() + fileDialog.getFile();
     }
 }

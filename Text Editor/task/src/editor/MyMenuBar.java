@@ -18,8 +18,8 @@ public class MyMenuBar {
 
         fileMenu.add(getOpenItem());
         fileMenu.add(getSaveItem());
+        fileMenu.add(getSaveAsItem());
         fileMenu.add(getExitItem());
-
         menuBar.add(fileMenu);
     }
 
@@ -74,6 +74,12 @@ public class MyMenuBar {
         JMenuItem saveItem = new JMenuItem("Save");
         saveItem.setName("MenuSave");
         saveItem.addActionListener(ActionListeners.getSaveAction());
+        return saveItem;
+    }
+    private JMenuItem getSaveAsItem() {
+        JMenuItem saveItem = new JMenuItem("Save as...");
+        saveItem.setName("MenuSaveAs");
+        saveItem.addActionListener(ActionListeners.getSaveAsAction());
         return saveItem;
     }
 
