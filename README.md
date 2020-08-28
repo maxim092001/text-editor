@@ -5,7 +5,7 @@ This project was developed at [JetBrains Academy](https://www.jetbrains.com/ru-r
 The main feature is regular expression search.
 
 
-**UPD:** added jar [Скачать](https://github.com/maxim092001/TextEditor/blob/master/jars/Maxon.jar)
+**UPD:** added jar [Download](https://github.com/maxim092001/TextEditor/blob/master/jars/Maxon.jar)
 
 
 **Launch: java -jar Maxon.jar**
