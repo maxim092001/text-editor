@@ -1,28 +1,28 @@
-## Текстовый редактор Maxon реализованный на Swing GUI.
+##  Text editor Maxon developed on Swing GUI.
 
-Данный проект был мной выполнен в [JetBrains Academy](https://www.jetbrains.com/ru-ru/academy/), платформа [Hyperskill](https://hyperskill.org/) и на данный момент дорабатывается.
+This project was developed at [JetBrains Academy](https://www.jetbrains.com/ru-ru/academy/), [Hyperskill](https://hyperskill.org/) platform.
 ----
-Основным отличием от остальных текстовых редакторов является наличие поиска по regular-expressions.
+The main feature is regular expression search.
 
 
-**UPD:** добавлен jar [Скачать](https://github.com/maxim092001/TextEditor/blob/master/jars/Maxon.jar)
+**UPD:** added jar [Скачать](https://github.com/maxim092001/TextEditor/blob/master/jars/Maxon.jar)
 
 
-**Запуск: java -jar Maxon.jar**
+**Launch: java -jar Maxon.jar**
 
 
-Основная страница
+Main page
 ---
 ![Main page](https://github.com/maxim092001/TextEditor/blob/master/Text%20Editor/task/resources/screenshots/main%20page.png)
 
-Сохранение
+Saving
 ---
 ![Save](https://github.com/maxim092001/TextEditor/blob/master/Text%20Editor/task/resources/screenshots/saving.png)
 
-Возможности поиска
+Search capabilities
 ---
 ![Search](https://github.com/maxim092001/TextEditor/blob/master/Text%20Editor/task/resources/screenshots/search.png)
 
-Реуглярные выражения
+Regular expressions
 ---
 ![RegExp](https://github.com/maxim092001/TextEditor/blob/master/Text%20Editor/task/resources/screenshots/regexp.png)
